@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 
 import { cleanDB, fillDummyCohort, fillDummyForm, fillDummyPatients, fillDummyVariables, resetDB_user_version } from '@Utils/dbUtils/fillDummyData.js';
-import { COLOR_DARK_GREEN, COLOR_RED, COLOR_WHITE } from '@Utils/constants';
+import { COLOR_DARK_GREEN, COLOR_RED, COLOR_WHITE, COLOR_DARK_BLUE } from '@Utils/constants';
 
 //Expo Router
 import { useRouter } from 'expo-router';
@@ -14,6 +14,9 @@ export default function homeScreen() {
     
     const db = useSQLiteContext();
     const router = useRouter();
+    const appEnv = process.env.EXPO_PUBLIC_ENV ?? process.env.EXPO_ENV;
+    const isDevEnv = appEnv === 'DEV';
+    console.log('MODE: ', appEnv);
     
     return (
           <View style={styles.container}> 
@@ -91,88 +94,90 @@ export default function homeScreen() {
                   </Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              {/* Fill dummy patient data */}
-              <TouchableOpacity
-                  key={1}
-                  style={styles.buttonDev}
-                  onPress={() => router.push(db)}
-                >
-                <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                  Llenar pacientes dummy
-                </Text>
-              </TouchableOpacity>
-              {/* Reset user_version*/}
-              <TouchableOpacity
-                  key={2}
-                  style={styles.buttonDev}
-                  onPress={() => resetDB_user_version(db)}
-                >
+            {isDevEnv && (
+              <View style={{ flexDirection: 'row', gap: 10 }}>
+                {/* Fill dummy patient data */}
+                <TouchableOpacity
+                    key={1}
+                    style={styles.buttonDev}
+                    onPress={() => router.push(db)}
+                  >
                   <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                    Resetear DB
+                    Llenar pacientes dummy
                   </Text>
-              </TouchableOpacity>
-              {/* Empty db tables*/}
-              <TouchableOpacity
-                  key={3}
-                  style={styles.buttonDev}
-                  onPress={() => cleanDB(db)}
-                >
+                </TouchableOpacity>
+                {/* Reset user_version*/}
+                <TouchableOpacity
+                    key={2}
+                    style={styles.buttonDev}
+                    onPress={() => resetDB_user_version(db)}
+                  >
+                    <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
+                      Resetear DB
+                    </Text>
+                </TouchableOpacity>
+                {/* Empty db tables*/}
+                <TouchableOpacity
+                    key={3}
+                    style={styles.buttonDev}
+                    onPress={() => cleanDB(db)}
+                  >
+                    <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
+                      Limpiar DB
+                    </Text>
+                </TouchableOpacity>
+                {/* Fill dummy form data */}
+                <TouchableOpacity
+                    key={4}
+                    style={styles.buttonDev}
+                    onPress={() => fillDummyForm(db)}
+                  >
                   <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                    Limpiar DB
+                    Llenar form dummy
                   </Text>
-              </TouchableOpacity>
-              {/* Fill dummy form data */}
-              <TouchableOpacity
-                  key={4}
-                  style={styles.buttonDev}
-                  onPress={() => fillDummyForm(db)}
-                >
-                <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                  Llenar form dummy
-                </Text>
-              </TouchableOpacity>
-              {/* Fill dummy cohort visit data */}
-              <TouchableOpacity
-                  key={5}
-                  style={styles.buttonDev}
-                  onPress={() => fillDummyCohort(db)}
-                >
-                <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                  Llenar cohort visit dummy
-                </Text>
-              </TouchableOpacity>
-              {/* Fill dummy variables */}
-              <TouchableOpacity
-                  key={6}
-                  style={styles.buttonDev}
-                  onPress={() => fillDummyVariables(db)}
-                >
-                <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                  Llenar variables dummy
-                </Text>
-              </TouchableOpacity>
-              {/* Show DB_Key */}
-              <TouchableOpacity
-                  key={7}
-                  style={styles.buttonDev}
-                  onPress={() => logDB_KEY()}
-                >
-                <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                  SHOW DB_KEY
-                </Text>
-              </TouchableOpacity>
-              {/* Erase DB_Key */}
-              <TouchableOpacity
-                  key={8}
-                  style={styles.buttonDev}
-                  onPress={() => eraseDB_KEY(db)}
-                >
-                <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
-                  ERASE DB_KEY
-                </Text>
-              </TouchableOpacity>
-            </View>
+                </TouchableOpacity>
+                {/* Fill dummy cohort visit data */}
+                <TouchableOpacity
+                    key={5}
+                    style={styles.buttonDev}
+                    onPress={() => fillDummyCohort(db)}
+                  >
+                  <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
+                    Llenar cohort visit dummy
+                  </Text>
+                </TouchableOpacity>
+                {/* Fill dummy variables */}
+                <TouchableOpacity
+                    key={6}
+                    style={styles.buttonDev}
+                    onPress={() => fillDummyVariables(db)}
+                  >
+                  <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
+                    Llenar variables dummy
+                  </Text>
+                </TouchableOpacity>
+                {/* Show DB_Key */}
+                <TouchableOpacity
+                    key={7}
+                    style={styles.buttonDev}
+                    onPress={() => logDB_KEY()}
+                  >
+                  <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
+                    SHOW DB_KEY
+                  </Text>
+                </TouchableOpacity>
+                {/* Erase DB_Key */}
+                <TouchableOpacity
+                    key={8}
+                    style={styles.buttonDev}
+                    onPress={() => eraseDB_KEY(db)}
+                  >
+                  <Text style={{ color: 'white', fontWeight: '300', textAlign: 'center' }}>
+                    ERASE DB_KEY
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
       )
 }
@@ -185,7 +190,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    backgroundColor: COLOR_DARK_GREEN,
+    backgroundColor: COLOR_DARK_BLUE,
     padding: 15,
     borderRadius: 5,
     flex: 1,

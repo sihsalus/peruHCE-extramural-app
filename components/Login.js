@@ -98,13 +98,13 @@ export const Login = () => {
               <Text style={styles.title}>Inicio de Sesión</Text>      
               <TextInput
                 style={styles.input}
-                placeholder="Username"
+                placeholder="Usuario"
                 value={username}
                 onChangeText={setUsername}
               />
               <TextInput
                 style={styles.input}
-                placeholder="Password"
+                placeholder="Contraseña"
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}

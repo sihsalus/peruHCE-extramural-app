@@ -41,6 +41,21 @@ CREATE TABLE IF NOT EXISTS Patient (
     active TEXT
 );`;
 
+export const PatientIdentifierTableScript = `  
+CREATE TABLE IF NOT EXISTS PatientIdentifier (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    uuid TEXT NOT NULL,
+    dni TEXT,
+    givenName TEXT,
+    middleName TEXT,
+    paternalLastName TEXT,
+    maternalLastName TEXT,
+    sex TEXT NOT NULL,
+    birthDate TEXT,
+    ethnicity TEXT,
+    active TEXT
+);`;
+
 export const UserTableScript = `  
 CREATE TABLE IF NOT EXISTS User (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

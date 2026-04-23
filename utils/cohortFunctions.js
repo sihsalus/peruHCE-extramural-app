@@ -58,7 +58,7 @@ export async function fillCohortMembersDB(db, baseUrl, endpoint, cohortUUID){
         let patientsListFormated = [];
 
 
-        //console.log('Fetching: ', baseUrl+endpoint+'cohortm/cohortmember?limit=100&v=full&cohort='+cohortUUID);
+        console.log('Fetching: ', baseUrl+endpoint+'cohortm/cohortmember?limit=100&v=full&cohort='+cohortUUID);
         const response = await fetch(baseUrl+endpoint+'cohortm/cohortmember?limit=100&v=full&cohort='+cohortUUID, {
             method: 'GET',
             headers: {
@@ -74,7 +74,7 @@ export async function fillCohortMembersDB(db, baseUrl, endpoint, cohortUUID){
 
         const jsonData = await response.json();        
         
-        //console.log('fetch result: ',jsonData);
+        console.log('fetch result: ',jsonData);
 
         patientsListRaw = jsonData.results;
         //console.log(patientsListRaw);

@@ -1,4 +1,4 @@
-import { COLOR_BLACK, COLOR_DARK_GREEN } from '../utils/constants';
+import { COLOR_BLACK, COLOR_DARK_BLUE, COLOR_DARK_GREEN } from '../utils/constants';
 import { StyleSheet} from "react-native";
 
 //Styles
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     },
     variableRow: {
         borderWidth: 3,
-        borderColor: COLOR_DARK_GREEN,
+        borderColor: COLOR_DARK_BLUE,
         padding: 10,
         marginBottom: 5,
         borderRadius: 5,

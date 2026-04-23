@@ -8,6 +8,7 @@ export const DB_VERSION = 1; //Version of the the DB, update this number for eve
 
 
 // Colors 
+export const COLOR_DARK_BLUE = "#2C2F79"; //SIH SALUS dark blue color
 export const COLOR_DARK_GREEN = "#005d5d"; //OpenMRS dark green color
 export const COLOR_BLACK = "#161616";
 export const COLOR_WHITE = "#fff";
