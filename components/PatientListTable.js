@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 
 import { getPatientFullName, getPatientPaternalLastName, getPatientMaternalLastName, getPatientSex } from '../utils/patientFunctions'; 
 import { getLocalformatDateDB, getAgeDB } from '../utils/dateFunctions';
@@ -15,7 +15,7 @@ export const PatientListTable = ({patientList}) => {
         <Text style={styles.headerText}>Apellido Materno</Text>
         <Text style={styles.headerText}>Sexo</Text>
         <Text style={styles.headerText}>Nacimiento</Text>
-        <Text style={styles.headerText}>Edad</Text>
+        <Text style={styles.headerText}>Edad (años)</Text>
         <Text style={styles.headerText}>Etnia</Text>
       </View>
     );
@@ -57,8 +57,9 @@ export const PatientListTableDB = ({patientList}) => {
       <Text style={styles.headerText}>Apellido Materno</Text>
       <Text style={styles.headerText}>Sexo</Text>
       <Text style={styles.headerText}>Nacimiento</Text>
-      <Text style={styles.headerText}>Edad</Text>
+      <Text style={styles.headerText}>Edad (años)</Text>
       <Text style={styles.headerText}>Etnia</Text>
+      <Text style={styles.headerText}>Acciòn</Text>
     </View>
   );
 
@@ -72,7 +73,12 @@ export const PatientListTableDB = ({patientList}) => {
       <Text style={styles.cell}>{item.sex || "-"}</Text>         
       <Text style={styles.cell}>{item.birthDate ? getLocalformatDateDB(item.birthDate) : "-"}</Text>                               
       <Text style={styles.cell}>{item.birthDate ? getAgeDB(item.birthDate) : "-"}</Text>
-      <Text style={styles.cell}>{item.ethnicity || "-"}</Text>                                    
+      <Text style={styles.cell}>{item.ethnicity || "-"}</Text>
+      <View style={styles.cell}>
+        <TouchableOpacity style={styles.actionButton}>
+          <Text style={styles.actionButtonText}>Atender</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -117,6 +123,18 @@ export const PatientListTableDB = ({patientList}) => {
     },
     cell: {
       flex: 1,
+      textAlign: "center",
+    },
+    actionButton: {
+      backgroundColor: "#007bff",
+      paddingVertical: 6,
+      paddingHorizontal: 10,
+      borderRadius: 6,
+      alignSelf: "center",
+    },
+    actionButtonText: {
+      color: "#fff",
+      fontWeight: "bold",
       textAlign: "center",
     },
   });

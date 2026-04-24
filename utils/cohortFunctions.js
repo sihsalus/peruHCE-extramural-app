@@ -1,5 +1,5 @@
 import { API_BASE_URL, USER, PASSWORD, DB_NAME, LOG_PATIENT, LOG_COHORT } from './constants.js';
-import { getPatientPaternalLastName, getPatientMaternalLastName, getPatientSex } from '../utils/patientFunctions'; 
+import { getPatientPaternalLastName, getPatientMaternalLastName, getPatientSex, getPatientMaternalLastNameAux, getPatientPaternalLastNameAux } from '../utils/patientFunctions'; 
 import { getLocalformatDate } from '../utils/dateFunctions';
 
 import * as SQLite from 'expo-sqlite';
@@ -88,11 +88,11 @@ export async function fillCohortMembersDB(db, baseUrl, endpoint, cohortUUID){
             dni:                getDniOfCohortMember(member),
             givenName:          member.patient?.person?.preferredName?.givenName  || "",
             middleName:         member.patient?.person?.preferredName?.middleName || "",
-            paternalLastName:   getPatientPaternalLastName(member),
-            maternalLastName:   getPatientMaternalLastName(member),
+            paternalLastName:   getPatientPaternalLastNameAux(member),
+            maternalLastName:   getPatientMaternalLastNameAux(member),
             sex:                getPatientSex(member),
             birthDate:          member.patient?.person?.birthdate || "",
-            ethnicity:          'test',
+            ethnicity:          '---',
             active:             "1"            
         }));
         //console.log('formatedPatients: ',patientsListFormated);

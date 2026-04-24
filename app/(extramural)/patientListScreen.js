@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 
 
 //Dummy Data
@@ -15,8 +15,26 @@ export default function PatientListScreen() {
     
     //Patient List Data
     const [patients, setPatients] = useState([]);
+    const [searchText, setSearchText] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const filteredPatients = patients.filter((patient) => {
+        if (searchText.trim() === "") return true;
+
+        const searchableText = [
+            patient.dni,
+            patient.givenName,
+            patient.middleName,
+            patient.paternalLastName,
+            patient.maternalLastName,
+        ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+        return searchableText.includes(searchText.trim().toLowerCase());
+    });
 
     const consultPatients = async () => {
         
@@ -54,8 +72,19 @@ export default function PatientListScreen() {
                             No hay pacientes cargados en el dispositivo
                         </Text> 
                     </View>                    
-                ) :          
-                <PatientListTableDB patientList={patients} /> 
+                ) : (
+                    <View>
+                        <View style={styles.searchContainer}>
+                            <TextInput
+                                style={styles.searchInput}
+                                placeholder="Buscar paciente..."
+                                value={searchText}
+                                onChangeText={setSearchText}
+                            />
+                        </View>
+                        <PatientListTableDB patientList={filteredPatients} />
+                    </View>
+                )
             ) }            
         </View>
     );
@@ -64,6 +93,19 @@ export default function PatientListScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    searchContainer: {
+        paddingHorizontal: 16,
+        paddingTop: 12,
+    },
+    searchInput: {
+        height: 42,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 8,
+        backgroundColor: "#fff",
+        paddingHorizontal: 12,
+        fontSize: 16,
     },
     alertContainer:{
         flex: 1,
